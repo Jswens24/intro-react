@@ -7,10 +7,18 @@ function App() {
   const [tasks, setTasks] = useState(['walk dogs', 'eat food', 'sleep']);
   const [input, setInput] = useState();
 
-  console.log(input);
+  const deleteTask = (index) => {
+    setTasks(currentTasks => {
+      const newTasks = [...currentTasks]
+      newTasks.splice(index, 1)
+      return newTasks
+    })
+  }
 
   const addTask = () => {
-    setTasks(...tasks, input)
+    setTasks(currentTasks => {
+      return [...tasks, input]
+    })
   }
 
   return (
@@ -18,7 +26,7 @@ function App() {
       <h1>Todo List</h1>
       <input onChange={e => setInput(e.target.value)} type="text" />
       <button onClick={addTask}>Add Task</button>
-      <List tasks={tasks} />
+      <List tasks={tasks} deleteTask={deleteTask} />
     </>
   )
 }
